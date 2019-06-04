@@ -1,6 +1,6 @@
 <?php
 
-define('STATIC_FILES_BUILD_VERSION', '1.00');
+define('STATIC_FILES_BUILD_VERSION', '1.1');
 
 //deregister unnessosary scripts
 function my_dequeue_scripts() {
@@ -83,3 +83,11 @@ add_action(
     );
   }
 );
+
+require_once __DIR__ . '/theme-helpers/carbon-fields/carbon-fields-plugin.php';
+
+add_action('carbon_register_fields', 'crb_register_custom_fields');
+function crb_register_custom_fields() {
+    // include_once __DIR__ . '/theme-helpers/custom-fields/example.php';
+
+}
