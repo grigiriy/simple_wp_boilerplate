@@ -15,14 +15,6 @@ remove_action('wp_head','adjacent_posts_rel_link_wp_head');
 remove_action('wp_head', 'wp_shortlink_wp_head');
 
 
-// remove "text\javascript" from all "script" tags
-add_filter('script_loader_tag', 'clean_script_tag');
-function clean_script_tag($input) {
-  $input = str_replace("type='text/javascript' ", '', $input);
-  return str_replace("'", '"', $input);
-}
-
-
 // remove hAtom micromarkup
 function remove_hentry( $classes ) {
 		$classes = array_diff($classes, array('hentry'));
