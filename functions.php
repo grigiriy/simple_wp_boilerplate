@@ -40,16 +40,6 @@ function disable_wp_emojis_in_tinymce( $plugins ) {
     }
 }
 
-// обязательно вешаем на admin_init
-add_action('admin_init','true_apply_categories_for_pages');
-function true_expanded_request_category($q) {
-	if (isset($q['category_name'])) // если в запросе присутствует параметр рубрики
-		$q['post_type'] = array('post', 'page'); // то, помимо записей, выводим также и страницы
-	return $q;
-}
-add_filter('request', 'true_expanded_request_category');
-
-
 // start
 function theme_styles()
 {
@@ -76,7 +66,11 @@ add_action(
   }
 );
 
-require_once __DIR__ . '/theme-helpers/carbon-fields/carbon-fields-plugin.php';
+add_action( 'after_setup_theme', 'crb_load' );
+function crb_load() {
+  require_once( 'vendor/autoload.php' );
+  \Carbon_Fields\Carbon_Fields::boot();
+}
 
 add_action('carbon_register_fields', 'crb_register_custom_fields');
 function crb_register_custom_fields() {
