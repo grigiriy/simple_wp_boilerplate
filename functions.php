@@ -74,6 +74,11 @@ function crb_load() {
 
 add_action('carbon_register_fields', 'crb_register_custom_fields');
 function crb_register_custom_fields() {
-    // include_once __DIR__ . '/theme-helpers/custom-fields/example.php';
+  include_once __DIR__ . '/theme-helpers/custom-fields/example.php';
+}
 
+add_action( 'after_setup_theme', 'crb_load' );
+function crb_load() {
+  require_once( 'vendor/autoload.php' );
+  \Carbon_Fields\Carbon_Fields::boot();
 }
