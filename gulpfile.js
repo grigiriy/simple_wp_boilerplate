@@ -1,46 +1,27 @@
-'use strict';
+const gulp = require('gulp');
 
+const serve = require('./gulp/tasks/serve');
+const pug2html = require('./gulp/tasks/pug2html');
+const styles = require('./gulp/tasks/styles');
+const watch = require('./gulp/tasks/watch');
+const scripts = require('./gulp/tasks/script');
+const script_plugins = require('./gulp/tasks/script_plugins');
+const clean = require('./gulp/tasks/clean');
+const moveAssets = require('./gulp/tasks/moveAssets');
+const images = require('./gulp/tasks/images');
 
-var gulp = require('gulp'),
-    sass = require('gulp-sass'),
-    // concat = require('gulp-concat'),
-    sourcemaps = require('gulp-sourcemaps'),
-    autoprefixer = require('gulp-autoprefixer'),
-    notify = require('gulp-notify'),
-    cssmin = require('gulp-cssmin');
-    // rename = require('gulp-rename');
-    // del = require('del');
+const dev = gulp.parallel(pug2html, styles, scripts, script_plugins);
 
-gulp.task('styles', function () {
-    return gulp.src('src/scss/main.scss')
-        .pipe(sourcemaps.init())
-        .pipe(sass())
-        // .pipe(autoprefixer(['last 2 versions', 'ie 10', 'opera 12']))
-        // .pipe(cssmin())
-        .pipe(sourcemaps.write('.'))
-        .pipe(gulp.dest('css'))
-        .pipe(notify({message: 'Собрались стили темы'}));
-});
+const build = gulp.series(
+  clean,
+  styles,
+  scripts,
+  script_plugins,
+  images,
+  moveAssets
+);
 
-gulp.task('build', function () {
-    return gulp.src('src/scss/main.scss')
-        // .pipe(sourcemaps.init())
-        .pipe(sass())
-        .pipe(autoprefixer(['last 2 versions', 'ie 10', 'opera 12']))
-        .pipe(cssmin())
-        // .pipe(sourcemaps.write('.'))
-        .pipe(gulp.dest('css'))
-        .pipe(notify({message: 'Собрались стили темы для прода'}));
-});
-
-// gulp.task('assets', function(){
-//   return gulp.src('src/assets/**', {since: gulp.lastRun('assets') })
-//   .pipe(gulp.dest('assets'))
-//   .pipe(notify({message: 'Собрались ассетсы темы'}));
-// });
-
-gulp.watch('src/**/*.*', ['styles'])
-// gulp.watch('src/**/*.*', ['assets'])
-
-
-// gulp.task('theme', ['styles', 'watch']);
+module.exports.scripts = gulp.series(scripts);
+module.exports.styles = gulp.series(clean, styles, images, moveAssets, watch);
+module.exports.start = gulp.series(build, dev, serve);
+module.exports.build = build;
