@@ -1,0 +1,97 @@
+// mobile
+// --small
+$mediaMobile_small-max: 359.8px;
+// --default
+$mediaMobile_default-min: 360px;
+$mediaMobile_default-max: 575.8px;
+//--plus
+$mediaMobile_plus-min: 576px;
+$mediaMobile_plus-max: 767.8px;
+
+// tablet
+// --portrait
+$mediaTablet_portrait-min: 768px;
+$mediaTablet_portrait-max: 991.8px;
+// --landscape
+$mediaTablet_landscape-min: 992px;
+$mediaTablet_landscape-max: 1199.8px;
+
+// desktop
+$mediaDesktop-min: 1200px;
+
+@mixin media-desktop-min {
+  @media (min-width: $mediaDesktop-min) {
+    @content;
+  }
+}
+
+@mixin media-mobile_small-max {
+  @media (max-width: $mediaMobile_small-max) {
+    @content;
+  }
+}
+
+@mixin media-mobile_default-max {
+  @media (max-width: $mediaMobile_default-max) {
+    @content;
+  }
+}
+
+@mixin media-mobile_plus-max {
+  @media (max-width: $mediaMobile_plus-max) {
+    @content;
+  }
+}
+
+@mixin media-tablet_portrait-max {
+  @media (max-width: $mediaTablet_portrait-max) {
+    @content;
+  }
+}
+@mixin media-tablet_landscape-max {
+  @media (max-width: $mediaTablet_landscape-max) {
+    @content;
+  }
+}
+
+@mixin media-mobile_plus__tablet_portrait-range {
+  @media (min-width: $mediaMobile_plus-min) and (max-width: $mediaTablet_portrait-max) {
+    @content;
+  }
+}
+
+@mixin media-tablet_portrait-range {
+  @media (min-width: $mediaTablet_portrait-min) and (max-width: $mediaTablet_portrait-max) {
+    @content;
+  }
+}
+
+@mixin media-tablet_landscape-range {
+  @media (min-width: $mediaTablet_landscape-min) and (max-width: $mediaTablet_landscape-max) {
+    @content;
+  }
+}
+
+@mixin media-mobile_plus-range {
+  @media (min-width: $mediaMobile_plus-min) and (max-width: $mediaMobile_plus-max) {
+    @content;
+  }
+}
+
+@mixin media-mobile_plus-min {
+  @media (min-width: $mediaMobile_plus-min) {
+    @content;
+  }
+}
+
+@mixin media-tablet_portrait-min {
+  @media (min-width: $mediaTablet_portrait-min) {
+    @content;
+  }
+}
+
+@mixin media-tablet_landscape-min {
+  @media (min-width: $mediaTablet_landscape-min) {
+    @content;
+  }
+}
