@@ -1,6 +1,6 @@
 <?php
 /**
- * Template Name: Main
+ * Template Name: Single
  */
  get_header(); ?>
 
